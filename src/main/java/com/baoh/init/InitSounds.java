@@ -1,10 +1,10 @@
-package com.rotpaddon.exampleaddon.init;
+package com.baoh.init;
 
 import java.util.function.Supplier;
 
 import com.github.standobyte.jojo.init.ModSounds;
 import com.github.standobyte.jojo.util.mc.OstSoundList;
-import com.rotpaddon.exampleaddon.AddonMain;
+import com.baoh.AddonMain;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;

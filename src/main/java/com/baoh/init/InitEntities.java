@@ -1,7 +1,6 @@
-package com.rotpaddon.exampleaddon.init;
+package com.baoh.init;
 
-import com.rotpaddon.exampleaddon.AddonMain;
-import com.rotpaddon.exampleaddon.entity.ExamplePickaxeEntity;
+import com.baoh.AddonMain;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

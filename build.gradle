@@ -13,7 +13,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = "${addon_version}"
-group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.geno.baoh' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'RotP-AddonExample'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
@@ -152,7 +152,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "examplemod",
+            "Specification-Title": "Baoh The Visitor",
             "Specification-Vendor": "examplemodsareus",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
