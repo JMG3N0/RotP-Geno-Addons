@@ -4,11 +4,11 @@ import com.baoh.power.skill.BaohSkill;
 import com.github.standobyte.jojo.power.impl.nonstand.INonStandPower;
 import com.github.standobyte.jojo.power.impl.nonstand.TypeSpecificData;
 import com.github.standobyte.jojo.power.impl.nonstand.type.NonStandPowerType;
+import com.github.standobyte.jojo.power.impl.nonstand.TypeSpecificData;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.EnumMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
 
 public class BaohPowerImpl extends TypeSpecificData implements IBaohPower {
     private final Map<BaohStat, Integer> statLevels = new EnumMap<>(BaohStat.class);
@@ -23,12 +23,15 @@ public class BaohPowerImpl extends TypeSpecificData implements IBaohPower {
         }
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public <T extends com.github.standobyte.jojo.power.impl.nonstand.TypeSpecificData> T getTypeSpecificData(NonStandPowerType<T> powerType)
-    {
-        return (T) this;
-    }
+//    @Override
+//    @SuppressWarnings("unchecked")
+//    public <T extends TypeSpecificData> T getTypeSpecificData(NonStandPowerType<T> powerType)
+//    {
+//        if (powerType == this.getType()) {
+//            return (T) this;
+//        }
+//        return null;
+//    }
 
     @Override
     public boolean hadPowerBefore(NonStandPowerType<?> powerType)
@@ -40,6 +43,11 @@ public class BaohPowerImpl extends TypeSpecificData implements IBaohPower {
     public void addHadPowerBefore(NonStandPowerType<?> powerType)
     {
         this.hadPowerBefore = true;
+    }
+
+    @Override
+    public <T extends NonStandPowerType<D>, D extends TypeSpecificData> Optional<D> getTypeSpecificData(@Nullable T requiredType) {
+        return (T) (Object) this;
     }
 
     @Override
