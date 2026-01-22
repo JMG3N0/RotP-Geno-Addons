@@ -36,12 +36,17 @@ public class BaohData extends TypeSpecificData {
     private int mindPoints;
     private int mindLevel;
     private int totalLevel;
+    private int adrenalineAmount;
 
     private float damageFactor = 1F;
 
     private boolean isTransformed;
     private boolean isSuspended;
     private boolean isUnified;
+    private boolean saberOut;
+    private boolean knowsHappiness;
+    private boolean knowsSadness;
+    private boolean knowsAnger;
+    private boolean knowsFear;
 
-    private
 }
