@@ -5,6 +5,7 @@ import com.github.standobyte.jojo.power.impl.nonstand.INonStandPower;
 import com.github.standobyte.jojo.power.impl.nonstand.TypeSpecificData;
 import com.github.standobyte.jojo.power.impl.nonstand.type.NonStandPowerType;
 import com.github.standobyte.jojo.power.impl.nonstand.TypeSpecificData;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import org.jetbrains.annotations.Nullable;
@@ -26,26 +27,27 @@ public class BaohPowerImpl extends TypeSpecificData implements IBaohPower {
     }
 
     @Override
+    public boolean hasPower()
+    {
+        return !unlockedSkills.isEmpty() || hadPowerBefore;
+    }
+
+    @Override
+    public PowerClassification getPowerClassification()
+    {
+        return PowerClassification.NON_STAND;
+    }
+
+    @Override
     public void syncWithUserOnly(ServerPlayerEntity player) {
 
     }
 
     @Override
-    public <T extends TypeSpecificData> void copyFrom(T oldData){
-        if (oldData instanceof BaohPowerImpl) {
-            BaohPowerImpl oldPower = (BaohPowerImpl) oldData;
+    public void syncWithTrackingOrUser(LivingEntity user, ServerPlayerEntity syncTo){
 
-            this.setEnergy(oldPower.getEnergy());
-            this.getAvailablePoints = oldPower.getAvailablePoints;
-            this.hadPowerBefore = oldPower.hadPowerBefore;
-
-            this.statLevels.clear();
-            this.statLevels.putAll(oldPower.statLevels);
-
-            this.unlockedSkills.clear();
-            this.unlockedSkills.addAll(oldPower.unlockedSkills);
-        }
     }
+
 
     @Override
     public CompoundNBT writeNBT() {
@@ -76,6 +78,8 @@ public class BaohPowerImpl extends TypeSpecificData implements IBaohPower {
             }
         }
     }
+
+
 
     // What the fuck is a getTypeSpecificData
 //    @Override
