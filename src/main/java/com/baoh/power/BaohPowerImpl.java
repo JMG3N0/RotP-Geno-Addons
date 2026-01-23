@@ -5,6 +5,8 @@ import com.github.standobyte.jojo.power.impl.nonstand.INonStandPower;
 import com.github.standobyte.jojo.power.impl.nonstand.TypeSpecificData;
 import com.github.standobyte.jojo.power.impl.nonstand.type.NonStandPowerType;
 import com.github.standobyte.jojo.power.impl.nonstand.TypeSpecificData;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import org.jetbrains.annotations.Nullable;
 
 
@@ -23,6 +25,59 @@ public class BaohPowerImpl extends TypeSpecificData implements IBaohPower {
         }
     }
 
+    @Override
+    public void syncWithUserOnly(ServerPlayerEntity player) {
+
+    }
+
+    @Override
+    public <T extends TypeSpecificData> void copyFrom(T oldData){
+        if (oldData instanceof BaohPowerImpl) {
+            BaohPowerImpl oldPower = (BaohPowerImpl) oldData;
+
+            this.setEnergy(oldPower.getEnergy());
+            this.getAvailablePoints = oldPower.getAvailablePoints;
+            this.hadPowerBefore = oldPower.hadPowerBefore;
+
+            this.statLevels.clear();
+            this.statLevels.putAll(oldPower.statLevels);
+
+            this.unlockedSkills.clear();
+            this.unlockedSkills.addAll(oldPower.unlockedSkills);
+        }
+    }
+
+    @Override
+    public CompoundNBT writeNBT() {
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putFloat("AdrenalineAmount", this.getEnergy());
+        nbt.putInt("AvailablePoints", this.getAvailablePoints);
+        nbt.putBoolean("HadPowerBefore", this.hadPowerBefore);
+
+        CompoundNBT baohStats = new CompoundNBT();
+        for (Map.Entry<BaohStat, Integer> entry : statLevels.entrySet()) {
+            baohStats.putInt(entry.getKey().name(), entry.getValue());
+        }
+        nbt.put("BaohStats", baohStats);
+        return nbt;
+    }
+
+    @Override
+    public void readNBT(CompoundNBT nbt)
+    {
+        this.setEnergy(nbt.getFloat("AdrenalineAmount"));
+        this.getAvailablePoints = nbt.getInt("AvailablePoints");
+        this.hadPowerBefore = nbt.getBoolean("HadPowerBefore");
+
+        CompoundNBT baohStats = nbt.getCompound("BaohStats");
+        for (BaohStat stat : BaohStat.values()) {
+            if (baohStats.contains(stat.name())){
+                this.statLevels.put(stat, baohStats.getInt(stat.name()));
+            }
+        }
+    }
+
+    // What the fuck is a getTypeSpecificData
 //    @Override
 //    @SuppressWarnings("unchecked")
 //    public <T extends TypeSpecificData> T getTypeSpecificData(NonStandPowerType<T> powerType)
@@ -46,9 +101,17 @@ public class BaohPowerImpl extends TypeSpecificData implements IBaohPower {
     }
 
     @Override
-    public <T extends NonStandPowerType<D>, D extends TypeSpecificData> Optional<D> getTypeSpecificData(@Nullable T requiredType) {
-        return (T) (Object) this;
+    @SuppressWarnings("unchecked")
+    public <T extends NonStandPowerType<D>, D extends TypeSpecificData> java.util.Optional<D> getTypeSpecificData(@Nullable T requiredType) {
+        // If the game is asking for the Baoh type, return this class wrapped in an Optional
+        if (requiredType == this.getType()) {
+            // We cast 'this' to D through Object, then wrap it in an Optional
+            return java.util.Optional.of((D) (Object) this);
+        }
+        // Otherwise, return empty so the mod knows the requested data isn't here
+        return java.util.Optional.empty();
     }
+
 
     @Override
     public int availablePoints(){
