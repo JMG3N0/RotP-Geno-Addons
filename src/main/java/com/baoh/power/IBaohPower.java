@@ -1,6 +1,5 @@
 package com.baoh.power;
 
-import com.baoh.power.skill.BaohSkill;
 import com.github.standobyte.jojo.power.impl.nonstand.INonStandPower;
 
 

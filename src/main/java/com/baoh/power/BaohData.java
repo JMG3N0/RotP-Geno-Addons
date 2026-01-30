@@ -24,6 +24,7 @@ public class BaohData extends TypeSpecificData {
 
         }
     }
+    public static final int MAX_BAOH_POINTS = pointsAtLevel(MAX_STAT_LEVEL);
 
     private int strengthPoints;
     private int strengthLevel;
@@ -37,6 +38,7 @@ public class BaohData extends TypeSpecificData {
     private int mindLevel;
     private int totalLevel;
     private int adrenalineAmount;
+    private int daysAlive;
 
     private float damageFactor = 1F;
 

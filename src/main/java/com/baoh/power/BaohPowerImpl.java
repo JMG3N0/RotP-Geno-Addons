@@ -1,10 +1,7 @@
 package com.baoh.power;
 
-import com.baoh.power.skill.BaohSkill;
-import com.github.standobyte.jojo.power.impl.nonstand.INonStandPower;
 import com.github.standobyte.jojo.power.impl.nonstand.TypeSpecificData;
 import com.github.standobyte.jojo.power.impl.nonstand.type.NonStandPowerType;
-import com.github.standobyte.jojo.power.impl.nonstand.TypeSpecificData;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -201,11 +198,6 @@ public class BaohPowerImpl extends TypeSpecificData implements IBaohPower {
         return true;
     }
 
-    @Override
-    public boolean hasEnergy(float amount)
-    {
-        return this.getEnergy() >= amount;
-    }
 
     @Override
     public void addEnergy(float amount)
@@ -220,8 +212,5 @@ public class BaohPowerImpl extends TypeSpecificData implements IBaohPower {
         this.setEnergy(this.getEnergy() + gainAmount);
     }
 
-    private void checkUnlockSkill()
-    {
 
-    }
 }
