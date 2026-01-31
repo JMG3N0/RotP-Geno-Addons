@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net' }
+
         mavenCentral()
     }
     dependencies {
@@ -11,6 +12,8 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+
+
 
 version = "${addon_version}"
 group = 'com.geno.baoh' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
